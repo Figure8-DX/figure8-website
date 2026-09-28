@@ -1,9 +1,7 @@
 export type ServiceId =
-  | "business-strategy"
   | "digital-transformation"
   | "tqm"
   | "ea"
-  | "grc"
   | "cx"
   | "bpm"
   | "data-management"
@@ -18,20 +16,6 @@ export type ServiceConfig = {
 };
 
 export const SERVICES: ServiceConfig[] = [
-  {
-    id: "business-strategy",
-    title: "Business Strategy Advisory",
-    description:
-      "Strategic planning and business model optimization for long-term success",
-    features: [
-      "Strategic Planning & Business Model Design",
-      "Market Analysis & Competitive Intelligence",
-      "Business Case Development",
-      "Performance Management Framework",
-      "Strategic Partnership Development",
-      "Business Transformation Strategy",
-    ],
-  },
   {
     id: "digital-transformation",
     title: "Digital Transformation Advisory",
@@ -48,16 +32,15 @@ export const SERVICES: ServiceConfig[] = [
   },
   {
     id: "tqm",
-    title: "Total Quality Management",
+    title: "Organizational Excellence",
     description:
-      "Comprehensive quality management systems and continuous improvement",
+      "Excellence frameworks, continuous improvement, and capability building",
     features: [
-      "Quality Management System Design",
-      "ISO Standards Implementation",
-      "Process Quality Improvement",
-      "Quality Assurance Framework",
-      "Six Sigma & Lean Methodologies",
-      "Continuous Improvement Programs",
+      "Organizational Excellence Frameworks (EFQM, Kaqa)",
+      "Lean Six Sigma & Continuous Improvement Programs",
+      "Operating Model & Performance Management Design",
+      "Quality Management Systems & ISO Implementation",
+      "Organizational Change & Capability Building",
     ],
   },
   {
@@ -72,20 +55,6 @@ export const SERVICES: ServiceConfig[] = [
       "Regulatory & Standard Alignment",
       "Architecture Planning & Roadmapping",
       "EA Operations & Continuous Governance",
-    ],
-  },
-  {
-    id: "grc",
-    title: "Governance, Risk & Compliance",
-    description:
-      "Comprehensive GRC frameworks and risk management strategies",
-    features: [
-      "GRC Framework Implementation",
-      "Risk Assessment & Mitigation",
-      "Compliance Management System",
-      "Internal Controls & Audit",
-      "Policy & Procedure Development",
-      "Regulatory Compliance Alignment",
     ],
   },
   {
@@ -131,29 +100,27 @@ export const SERVICES: ServiceConfig[] = [
   },
   {
     id: "ai-governance",
-    title: "AI Management & Governance",
+    title: "AI Transformation",
     description:
-      "Implement AI Management System in compliance with ISO42001",
+      "End-to-end AI strategy, enablement, and compliance",
     features: [
-      "AI Governance Framework",
-      "AIMS Establishment",
-      "AI Risk Management",
-      "AI Lifecycle Management",
-      "Regulatory & Compliance Alignment",
+      "AI Readiness & Transformation Assessment",
+      "AI Transformation Strategy",
+      "AI CoE Establishment",
+      "AI Use Cases Discovery & Enablement",
+      "AI Compliance and Audit",
     ],
   },
   {
     id: "digital-innovation",
-    title: "Digital Innovation Lab",
+    title: "Digital Product Innovation",
     description:
-      "Innovation labs, product incubation, and venture co-building",
+      "Digital product strategy, innovation labs, and product management",
     features: [
-      "Innovation Strategy & Opportunity Scouting",
-      "Design Thinking Workshops",
-      "Proof of Concept Development",
-      "Emerging Technology Adoption",
-      "Innovation Culture Building",
-      "Startup Partnership Programs",
+      "Digital Product Strategy & Execution",
+      "Digital Product Innovation Lab Establishment",
+      "Digital Product Management",
+      "Digital Product Audit & Maturity Assessment",
     ],
   },
 ];
