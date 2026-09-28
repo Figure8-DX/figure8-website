@@ -36,7 +36,7 @@ export const SERVICES: ServiceConfig[] = [
     description:
       "Excellence frameworks, continuous improvement, and capability building",
     features: [
-      "Organizational Excellence Frameworks (EFQM, Kaqa)",
+      "Organizational Excellence Frameworks (EFQM, KAQA)",
       "Lean Six Sigma & Continuous Improvement Programs",
       "Operating Model & Performance Management Design",
       "Quality Management Systems & ISO Implementation",
