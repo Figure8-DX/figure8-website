@@ -31,19 +31,6 @@ export const SERVICES: ServiceConfig[] = [
     ],
   },
   {
-    id: "tqm",
-    title: "Organizational Excellence",
-    description:
-      "Excellence frameworks, continuous improvement, and capability building",
-    features: [
-      "Organizational Excellence Frameworks (EFQM, KAQA)",
-      "Lean Six Sigma & Continuous Improvement Programs",
-      "Operating Model & Performance Management Design",
-      "Quality Management Systems & ISO Implementation",
-      "Organizational Change & Capability Building",
-    ],
-  },
-  {
     id: "ea",
     title: "Enterprise Architecture (EA)",
     description:
@@ -55,6 +42,44 @@ export const SERVICES: ServiceConfig[] = [
       "Regulatory & Standard Alignment",
       "Architecture Planning & Roadmapping",
       "EA Operations & Continuous Governance",
+    ],
+  },
+  {
+    id: "ai-governance",
+    title: "AI Transformation",
+    description:
+      "End-to-end AI strategy, enablement, and compliance",
+    features: [
+      "AI Readiness & Transformation Assessment",
+      "AI Transformation Strategy",
+      "AI CoE Establishment",
+      "AI Use Cases Discovery & Enablement",
+      "AI Compliance and Audit",
+    ],
+  },
+  {
+    id: "digital-innovation",
+    title: "Digital Product Innovation",
+    description:
+      "Digital product strategy, innovation labs, and product management",
+    features: [
+      "Digital Product Strategy & Execution",
+      "Digital Product Innovation Lab Establishment",
+      "Digital Product Management",
+      "Digital Product Audit & Maturity Assessment",
+    ],
+  },
+  {
+    id: "tqm",
+    title: "Organizational Excellence",
+    description:
+      "Excellence frameworks, continuous improvement, and capability building",
+    features: [
+      "Organizational Excellence Frameworks (EFQM, KAQA)",
+      "Lean Six Sigma & Continuous Improvement Programs",
+      "Operating Model & Performance Management Design",
+      "Quality Management Systems & ISO Implementation",
+      "Organizational Change & Capability Building",
     ],
   },
   {
@@ -98,30 +123,4 @@ export const SERVICES: ServiceConfig[] = [
       "Data Privacy & Security",
     ],
   },
-  {
-    id: "ai-governance",
-    title: "AI Transformation",
-    description:
-      "End-to-end AI strategy, enablement, and compliance",
-    features: [
-      "AI Readiness & Transformation Assessment",
-      "AI Transformation Strategy",
-      "AI CoE Establishment",
-      "AI Use Cases Discovery & Enablement",
-      "AI Compliance and Audit",
-    ],
-  },
-  {
-    id: "digital-innovation",
-    title: "Digital Product Innovation",
-    description:
-      "Digital product strategy, innovation labs, and product management",
-    features: [
-      "Digital Product Strategy & Execution",
-      "Digital Product Innovation Lab Establishment",
-      "Digital Product Management",
-      "Digital Product Audit & Maturity Assessment",
-    ],
-  },
 ];
-
