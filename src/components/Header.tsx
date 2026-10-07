@@ -1,19 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { scrollToSection } from "@/lib/scrollToSection";
 import { useLanguage } from "@/i18n/LanguageProvider";
-
-type NavItem =
-  | { label: string; kind: "scroll"; id: string }
-  | { label: string; kind: "route"; href: string };
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const { t, lang, homePath, alternatePath } = useLanguage();
+  const { t, lang, alternatePath } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,13 +35,12 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems: NavItem[] = [
-    { label: t.nav.home, kind: "scroll", id: "hero" },
-    { label: t.nav.about, kind: "scroll", id: "about" },
-    { label: t.nav.services, kind: "route", href: "/services" },
-    { label: t.nav.industries, kind: "route", href: "/industries" },
-    { label: t.nav.clients, kind: "scroll", id: "clients" },
-    { label: t.nav.contact, kind: "scroll", id: "contact" },
+  const navItems = [
+    { label: t.nav.home, id: "hero" },
+    { label: t.nav.about, id: "about" },
+    { label: t.nav.services, id: "services" },
+    { label: t.nav.clients, id: "clients" },
+    { label: t.nav.contact, id: "contact" },
   ];
 
   const otherLang = lang === "ar" ? "en" : "ar";
@@ -91,43 +85,21 @@ export default function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
-            {navItems.map((item) => {
-              const linkClass =
-                "relative text-[#DDDFE0] hover:text-white transition-colors duration-300 group cursor-pointer";
-              const inner = (
-                <>
-                  <span className="relative z-10 font-medium">{item.label}</span>
-                  {/* Hover underline effect */}
-                  <div className="absolute bottom-0 start-0 w-0 h-0.5 bg-[#EB5824] group-hover:w-full transition-all duration-300"></div>
-                  {/* Hover background glow */}
-                  <div className="absolute inset-0 rounded-md bg-[#EB5824]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
-                </>
-              );
-
-              return item.kind === "route" ? (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={linkClass}
-                >
-                  {inner}
-                </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={`${homePath}#${item.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.id);
-                  }}
-                  className={linkClass}
-                >
-                  {inner}
-                </a>
-              );
-            })}
+          <div className="hidden lg:flex items-center gap-8">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={() => handleNavClick(item.id)}
+                className="relative text-[#DDDFE0] hover:text-white transition-colors duration-300 group cursor-pointer"
+              >
+                <span className="relative z-10 font-medium">{item.label}</span>
+                {/* Hover underline effect */}
+                <div className="absolute bottom-0 start-0 w-0 h-0.5 bg-[#EB5824] group-hover:w-full transition-all duration-300"></div>
+                {/* Hover background glow */}
+                <div className="absolute inset-0 rounded-md bg-[#EB5824]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
+              </a>
+            ))}
           </div>
 
           {/* Language toggle + CTA Button */}
@@ -211,38 +183,18 @@ export default function Header() {
               role="navigation"
               aria-label="Mobile navigation"
             >
-              {navItems.map((item) => {
-                const linkClass =
-                  "text-start text-[#DDDFE0] hover:text-white hover:bg-[#EB5824]/10 px-4 py-3 rounded-lg transition-all duration-300 group cursor-pointer";
-                const inner = (
+              {navItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => handleNavClick(item.id)}
+                  className="text-start text-[#DDDFE0] hover:text-white hover:bg-[#EB5824]/10 px-4 py-3 rounded-lg transition-all duration-300 group cursor-pointer"
+                >
                   <span className="font-medium group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transform transition-transform duration-300 inline-block">
                     {item.label}
                   </span>
-                );
-
-                return item.kind === "route" ? (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={linkClass}
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.label}
-                    href={`${homePath}#${item.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick(item.id);
-                    }}
-                    className={linkClass}
-                  >
-                    {inner}
-                  </a>
-                );
-              })}
+                </a>
+              ))}
 
               {/* Mobile CTA */}
               <a

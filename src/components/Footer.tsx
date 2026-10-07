@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { SERVICES } from "@/config/services";
-import { getServiceSlugById } from "@/config/serviceDetails";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/config/contact";
 import { useLanguage } from "@/i18n/LanguageProvider";
 import { localizeService } from "@/i18n/dictionaries";
@@ -11,15 +9,18 @@ import { localizeService } from "@/i18n/dictionaries";
 export default function Footer() {
   const [currentYear] = useState(new Date().getFullYear());
   const [isVisible] = useState(true);
-  const { t, lang, homePath } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const quickLinks = [
-    { name: t.nav.about, href: `${homePath}#about` },
-    { name: t.nav.services, href: "/services" },
-    { name: t.nav.industries, href: "/industries" },
-    { name: t.nav.clients, href: `${homePath}#clients` },
-    { name: t.nav.contact, href: `${homePath}#contact` },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.services, href: "#services" },
+    { name: t.nav.clients, href: "#clients" },
+    { name: t.nav.contact, href: "#contact" },
   ];
+
+  const services = SERVICES.map(
+    (service) => localizeService(service, lang).title,
+  );
 
   return (
     <footer className="bg-white text-[#212E3F] relative overflow-hidden border-t border-[#212E3F]/10">
@@ -73,14 +74,10 @@ export default function Footer() {
                 {t.footer.services}
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-6 gap-y-2">
-                {SERVICES.map((service) => (
-                  <Link
-                    key={service.id}
-                    href={`/services/${getServiceSlugById(service.id)}`}
-                    className="text-[#212E3F]/70 hover:text-[#EB5824] transition-colors duration-300 text-sm"
-                  >
-                    {localizeService(service, lang).title}
-                  </Link>
+                {services.map((service, index) => (
+                  <div key={index} className="text-[#212E3F]/70 text-sm">
+                    {service}
+                  </div>
                 ))}
               </div>
             </div>

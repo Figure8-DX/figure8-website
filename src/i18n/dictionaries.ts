@@ -10,9 +10,8 @@ export type Lang = "en" | "ar";
 const en = {
   nav: {
     home: "Home",
-    about: "About",
+    about: "About Us",
     services: "Services",
-    industries: "Industries",
     clients: "Clients",
     contact: "Contact",
     cta: "Let's Connect",
@@ -79,8 +78,6 @@ const en = {
     subtitle:
       "Comprehensive digital transformation services designed for governmental and enterprise excellence.",
     allServices: "All Services",
-    explore: "Explore",
-    learnMore: "Learn more",
   },
   expertise: {
     title: "Our Expertise",
@@ -165,7 +162,6 @@ const ar: Dictionary = {
     home: "الرئيسية",
     about: "من نحن",
     services: "الخدمات",
-    industries: "القطاعات",
     clients: "عملاؤنا",
     contact: "اتصل بنا",
     cta: "لنتواصل",
@@ -230,8 +226,6 @@ const ar: Dictionary = {
     subtitle:
       "خدمات تحوّل رقمي شاملة مصممة لتحقيق التميّز في الجهات الحكومية والمؤسسات.",
     allServices: "جميع الخدمات",
-    explore: "استكشف",
-    learnMore: "اعرف المزيد",
   },
   expertise: {
     title: "خبراتنا",
