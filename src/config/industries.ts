@@ -41,7 +41,7 @@ export const INDUSTRIES: Industry[] = [
       "Digital transformation strategy and roadmaps",
       "Business process catalogues and reengineering",
     ],
-    relatedServices: ["digital-transformation", "ea", "bpm", "business-strategy"],
+    relatedServices: ["digital-transformation", "ea", "bpm"],
     caseStudies: ["royal-commission-jubail-yanbu", "scisp", "elm"],
   },
   {
@@ -60,7 +60,7 @@ export const INDUSTRIES: Industry[] = [
       "Business process catalogues",
       "Quality management and compliance",
     ],
-    relatedServices: ["ea", "tqm", "bpm", "grc"],
+    relatedServices: ["ea", "tqm", "bpm"],
     caseStudies: ["kfshrc"],
   },
   {
@@ -79,7 +79,7 @@ export const INDUSTRIES: Industry[] = [
       "Application portfolio rationalization",
       "Digital transformation advisory",
     ],
-    relatedServices: ["business-strategy", "ea", "digital-transformation"],
+    relatedServices: ["ea", "digital-transformation"],
     caseStudies: ["royal-commission-jubail-yanbu"],
   },
   {
@@ -98,7 +98,7 @@ export const INDUSTRIES: Industry[] = [
       "Business process management",
       "Governance, risk & compliance",
     ],
-    relatedServices: ["ea", "bpm", "grc"],
+    relatedServices: ["ea", "bpm"],
     caseStudies: [],
   },
   {

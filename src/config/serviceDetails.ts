@@ -123,42 +123,6 @@ export const CASE_STUDIES: Record<CaseStudyId, CaseStudy> = {
 /* -------------------------------------------------------------------------- */
 
 export const SERVICE_DETAILS: Record<ServiceId, ServiceDetail> = {
-  "business-strategy": {
-    slug: "business-strategy-advisory",
-    tagline: "Turn ambition into an executable, measurable strategy.",
-    targetSegments: [
-      "Government entities defining their mandate and KPIs",
-      "Enterprises planning growth or transformation",
-      "Startups validating and scaling their business model",
-    ],
-    valueDelivered: [
-      "A clear strategy connected to measurable outcomes",
-      "Validated business models and prioritized initiatives",
-      "Alignment between leadership, budgets, and execution",
-    ],
-    approach: [
-      { phase: "Assess", description: "Understand context, market, and current performance baselines." },
-      { phase: "Define", description: "Set vision, strategic objectives, and the operating model to support them." },
-      { phase: "Prioritize", description: "Build the business case and sequence initiatives by value and feasibility." },
-      { phase: "Enable", description: "Stand up performance management to track delivery against targets." },
-    ],
-    subServices: [
-      { title: "Strategic Planning & Business Model Design", description: "Define long-term vision, objectives, and the business model needed to achieve them." },
-      { title: "Market Analysis & Competitive Intelligence", description: "Assess market dynamics, opportunities, and competitive positioning to inform strategy." },
-      { title: "Business Case Development", description: "Quantify costs, benefits, and risks to support confident investment decisions." },
-      { title: "Performance Management Framework", description: "Translate strategy into KPIs, scorecards, and governance for tracking results." },
-      { title: "Strategic Partnership Development", description: "Identify and structure partnerships that accelerate strategic goals." },
-      { title: "Business Transformation Strategy", description: "Design the change roadmap that moves the organization from today to its target state." },
-    ],
-    frameworks: ["Balanced Scorecard", "OKRs", "Porter's Five Forces", "Business Model Canvas", "EFQM"],
-    whyUs: [
-      "30+ years of combined advisory experience across the GCC, MENA, and EU",
-      "Strategy grounded in execution, not slideware",
-      "Deep public-sector and national-agenda alignment experience",
-    ],
-    tools: ["Power BI", "Alteryx"],
-    caseStudies: ["scisp"],
-  },
 
   "digital-transformation": {
     slug: "digital-transformation-advisory",
@@ -271,42 +235,6 @@ export const SERVICE_DETAILS: Record<ServiceId, ServiceDetail> = {
     caseStudies: ["royal-commission-jubail-yanbu", "elm", "kfshrc"],
   },
 
-  grc: {
-    slug: "governance-risk-compliance",
-    tagline: "Manage risk and compliance as an enabler, not a brake.",
-    targetSegments: [
-      "Regulated entities managing complex compliance obligations",
-      "Public organizations strengthening internal controls",
-      "Enterprises consolidating risk under one framework",
-    ],
-    valueDelivered: [
-      "An integrated GRC framework with clear ownership",
-      "Reduced compliance exposure and audit findings",
-      "Confident, risk-informed decision-making",
-    ],
-    approach: [
-      { phase: "Assess", description: "Map obligations, risks, and current control coverage." },
-      { phase: "Design", description: "Build the GRC framework, policies, and control library." },
-      { phase: "Implement", description: "Operationalize controls, monitoring, and reporting." },
-      { phase: "Assure", description: "Run audits and continuous improvement of the control environment." },
-    ],
-    subServices: [
-      { title: "GRC Framework Implementation", description: "Establish an integrated governance, risk, and compliance operating model." },
-      { title: "Risk Assessment & Mitigation", description: "Identify, score, and treat enterprise risks with clear ownership." },
-      { title: "Compliance Management System", description: "Track obligations and evidence to stay continuously audit-ready." },
-      { title: "Internal Controls & Audit", description: "Design and test controls that hold up to scrutiny." },
-      { title: "Policy & Procedure Development", description: "Author clear, enforceable policies and supporting procedures." },
-      { title: "Regulatory Compliance Alignment", description: "Align to national and sector-specific regulatory requirements." },
-    ],
-    frameworks: ["ISO 27001", "ISO 22301", "ISO 38500", "COBIT", "NCA Controls"],
-    whyUs: [
-      "Compliance fluency with national regulators and standards",
-      "Controls designed to enable delivery, not obstruct it",
-      "Experience across health, public, and semi-government sectors",
-    ],
-    tools: ["Orbus iServer", "Power BI"],
-    caseStudies: ["kfshrc"],
-  },
 
   cx: {
     slug: "customer-experience",

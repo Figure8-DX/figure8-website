@@ -1,9 +1,7 @@
 export type ServiceId =
-  | "business-strategy"
   | "digital-transformation"
   | "tqm"
   | "ea"
-  | "grc"
   | "cx"
   | "bpm"
   | "data-management"
@@ -19,20 +17,6 @@ export type ServiceConfig = {
 
 export const SERVICES: ServiceConfig[] = [
   {
-    id: "business-strategy",
-    title: "Business Strategy Advisory",
-    description:
-      "Strategic planning and business model optimization for long-term success",
-    features: [
-      "Strategic Planning & Business Model Design",
-      "Market Analysis & Competitive Intelligence",
-      "Business Case Development",
-      "Performance Management Framework",
-      "Strategic Partnership Development",
-      "Business Transformation Strategy",
-    ],
-  },
-  {
     id: "digital-transformation",
     title: "Digital Transformation Advisory",
     description:
@@ -44,20 +28,6 @@ export const SERVICES: ServiceConfig[] = [
       "Change Management & Adoption",
       "Digital Governance Framework",
       "Innovation Program Design",
-    ],
-  },
-  {
-    id: "tqm",
-    title: "Total Quality Management",
-    description:
-      "Comprehensive quality management systems and continuous improvement",
-    features: [
-      "Quality Management System Design",
-      "ISO Standards Implementation",
-      "Process Quality Improvement",
-      "Quality Assurance Framework",
-      "Six Sigma & Lean Methodologies",
-      "Continuous Improvement Programs",
     ],
   },
   {
@@ -75,17 +45,41 @@ export const SERVICES: ServiceConfig[] = [
     ],
   },
   {
-    id: "grc",
-    title: "Governance, Risk & Compliance",
+    id: "ai-governance",
+    title: "AI Transformation",
     description:
-      "Comprehensive GRC frameworks and risk management strategies",
+      "End-to-end AI strategy, enablement, and compliance",
     features: [
-      "GRC Framework Implementation",
-      "Risk Assessment & Mitigation",
-      "Compliance Management System",
-      "Internal Controls & Audit",
-      "Policy & Procedure Development",
-      "Regulatory Compliance Alignment",
+      "AI Readiness & Transformation Assessment",
+      "AI Transformation Strategy",
+      "AI CoE Establishment",
+      "AI Use Cases Discovery & Enablement",
+      "AI Compliance and Audit",
+    ],
+  },
+  {
+    id: "digital-innovation",
+    title: "Digital Product Innovation",
+    description:
+      "Digital product strategy, innovation labs, and product management",
+    features: [
+      "Digital Product Strategy & Execution",
+      "Digital Product Innovation Lab Establishment",
+      "Digital Product Management",
+      "Digital Product Audit & Maturity Assessment",
+    ],
+  },
+  {
+    id: "tqm",
+    title: "Organizational Excellence",
+    description:
+      "Excellence frameworks, continuous improvement, and capability building",
+    features: [
+      "Organizational Excellence Frameworks (EFQM, KAQA)",
+      "Lean Six Sigma & Continuous Improvement Programs",
+      "Operating Model & Performance Management Design",
+      "Quality Management Systems & ISO Implementation",
+      "Organizational Change & Capability Building",
     ],
   },
   {
@@ -129,32 +123,4 @@ export const SERVICES: ServiceConfig[] = [
       "Data Privacy & Security",
     ],
   },
-  {
-    id: "ai-governance",
-    title: "AI Management & Governance",
-    description:
-      "Implement AI Management System in compliance with ISO42001",
-    features: [
-      "AI Governance Framework",
-      "AIMS Establishment",
-      "AI Risk Management",
-      "AI Lifecycle Management",
-      "Regulatory & Compliance Alignment",
-    ],
-  },
-  {
-    id: "digital-innovation",
-    title: "Digital Innovation Lab",
-    description:
-      "Innovation labs, product incubation, and venture co-building",
-    features: [
-      "Innovation Strategy & Opportunity Scouting",
-      "Design Thinking Workshops",
-      "Proof of Concept Development",
-      "Emerging Technology Adoption",
-      "Innovation Culture Building",
-      "Startup Partnership Programs",
-    ],
-  },
 ];
-
