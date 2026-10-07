@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllServiceSlugs } from '@/config/serviceDetails';
 import { getAllIndustrySlugs } from '@/config/industries';
 import { getAllPosts } from '@/config/blog';
+import { HOME_LANGUAGE_ALTERNATES } from '@/i18n/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.figure8dx.com';
@@ -34,6 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: 'monthly',
       priority: 1,
+      alternates: { languages: HOME_LANGUAGE_ALTERNATES },
+    },
+    {
+      url: `${baseUrl}/ar`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 1,
+      alternates: { languages: HOME_LANGUAGE_ALTERNATES },
     },
     {
       url: `${baseUrl}/services`,

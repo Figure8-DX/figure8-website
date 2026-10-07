@@ -11,14 +11,14 @@ import { localizeService } from "@/i18n/dictionaries";
 export default function Footer() {
   const [currentYear] = useState(new Date().getFullYear());
   const [isVisible] = useState(true);
-  const { t, lang } = useLanguage();
+  const { t, lang, homePath } = useLanguage();
 
   const quickLinks = [
-    { name: t.nav.about, href: "/#about" },
+    { name: t.nav.about, href: `${homePath}#about` },
     { name: t.nav.services, href: "/services" },
     { name: t.nav.industries, href: "/industries" },
     { name: t.nav.insights, href: "/blog" },
-    { name: t.nav.contact, href: "/#contact" },
+    { name: t.nav.contact, href: `${homePath}#contact` },
   ];
 
   return (

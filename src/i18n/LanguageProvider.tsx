@@ -1,87 +1,50 @@
 "use client";
 
-import { createContext, useContext, useEffect, useSyncExternalStore } from "react";
+import { createContext, useContext } from "react";
 import { usePathname } from "next/navigation";
 import { dictionaries, Dictionary, Lang } from "./dictionaries";
 
-export const LANG_STORAGE_KEY = "f8-lang";
-
-/**
- * Routes that have an Arabic translation. On every other route the site stays
- * English/LTR and the language toggle is hidden, so untranslated pages never
- * render English text inside a right-to-left layout.
- */
-export const TRANSLATED_PATHS = ["/"];
-
-// Language preference store backed by localStorage. useSyncExternalStore renders
-// the server snapshot ("en") during hydration, then the stored value.
-const listeners = new Set<() => void>();
-let memoryLang: Lang | null = null;
-
-function readStoredLang(): Lang {
-  try {
-    return localStorage.getItem(LANG_STORAGE_KEY) === "ar" ? "ar" : "en";
-  } catch {
-    return "en";
-  }
-}
-
-function writeStoredLang(lang: Lang) {
-  try {
-    localStorage.setItem(LANG_STORAGE_KEY, lang);
-  } catch {
-    // Storage unavailable (private mode, blocked cookies): keep it in memory.
-    memoryLang = lang;
-  }
-  listeners.forEach((listener) => listener());
-}
-
-function subscribe(listener: () => void) {
-  listeners.add(listener);
-  return () => listeners.delete(listener);
-}
+/** Path of the homepage in each language. */
+export const HOME_PATHS: Record<Lang, string> = { en: "/", ar: "/ar" };
 
 type LanguageContextValue = {
-  /** Language in effect on the current page. */
   lang: Lang;
   dir: "ltr" | "rtl";
   t: Dictionary;
-  /** Whether the current page has a translation (toggle is shown). */
-  isTranslatedPage: boolean;
-  setLang: (lang: Lang) => void;
+  /** Homepage for the current language, for in-page anchors like #about. */
+  homePath: string;
+  /**
+   * The same page in the other language, or null when it has no translation
+   * (the toggle is hidden then).
+   */
+  alternatePath: string | null;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+/**
+ * The language comes from the route: everything under /ar is Arabic and
+ * everything else is English. Only the homepage is translated so far.
+ */
+export function LanguageProvider({
+  lang,
+  children,
+}: {
+  lang: Lang;
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
-  const preferred = useSyncExternalStore(
-    subscribe,
-    () => memoryLang ?? readStoredLang(),
-    () => "en" as Lang,
-  );
-
-  const isTranslatedPage = TRANSLATED_PATHS.includes(pathname ?? "");
-  const lang: Lang = isTranslatedPage ? preferred : "en";
-  const dir = lang === "ar" ? "rtl" : "ltr";
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.lang = lang;
-    root.dir = dir;
-    // Set by the pre-hydration script in layout.tsx to hide the English
-    // first render from Arabic visitors.
-    root.classList.remove("lang-pending");
-  }, [lang, dir]);
+  const other: Lang = lang === "ar" ? "en" : "ar";
+  const isHome = pathname === HOME_PATHS[lang];
 
   return (
     <LanguageContext.Provider
       value={{
         lang,
-        dir,
+        dir: lang === "ar" ? "rtl" : "ltr",
         t: dictionaries[lang],
-        isTranslatedPage,
-        setLang: writeStoredLang,
+        homePath: HOME_PATHS[lang],
+        alternatePath: isHome ? HOME_PATHS[other] : null,
       }}
     >
       {children}
@@ -96,13 +59,3 @@ export function useLanguage() {
   }
   return context;
 }
-
-/**
- * Runs before React hydrates: applies the stored Arabic preference to <html>
- * and hides the page until the provider has rendered the Arabic content.
- */
-export const LANGUAGE_BOOTSTRAP_SCRIPT = `(function(){try{var p=${JSON.stringify(
-  TRANSLATED_PATHS,
-)};if(p.indexOf(location.pathname)>-1&&localStorage.getItem(${JSON.stringify(
-  LANG_STORAGE_KEY,
-)})==="ar"){var d=document.documentElement;d.lang="ar";d.dir="rtl";d.classList.add("lang-pending");setTimeout(function(){d.classList.remove("lang-pending")},2000)}}catch(e){}})();`;

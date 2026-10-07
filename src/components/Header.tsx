@@ -13,7 +13,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const { t, lang, setLang, isTranslatedPage } = useLanguage();
+  const { t, lang, homePath, alternatePath } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,19 +49,20 @@ export default function Header() {
     { label: t.nav.contact, kind: "scroll", id: "contact" },
   ];
 
-  const toggleLanguage = () => setLang(lang === "ar" ? "en" : "ar");
+  const otherLang = lang === "ar" ? "en" : "ar";
 
+  // Links to the same page in the other language; hidden on untranslated pages.
   const languageToggle = (className: string) =>
-    isTranslatedPage ? (
-      <button
-        type="button"
-        onClick={toggleLanguage}
+    alternatePath ? (
+      <a
+        href={alternatePath}
+        hrefLang={otherLang}
+        lang={otherLang}
         aria-label={t.nav.switchLanguageAria}
-        lang={lang === "ar" ? "en" : "ar"}
         className={`text-[#DDDFE0] hover:text-white border border-white/20 hover:border-[#EB5824] rounded-lg font-medium transition-colors duration-300 ${className}`}
       >
         {t.nav.switchLanguage}
-      </button>
+      </a>
     ) : null;
 
   return (
@@ -116,7 +117,7 @@ export default function Header() {
               ) : (
                 <a
                   key={item.label}
-                  href={`/#${item.id}`}
+                  href={`${homePath}#${item.id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(item.id);
@@ -231,7 +232,7 @@ export default function Header() {
                 ) : (
                   <a
                     key={item.label}
-                    href={`/#${item.id}`}
+                    href={`${homePath}#${item.id}`}
                     onClick={(e) => {
                       e.preventDefault();
                       handleNavClick(item.id);

@@ -135,12 +135,6 @@ html[lang="ar"] h4:not(:lang(en)) {
   line-height: 1.4;
 }
 
-/* Hide the first (English) paint from Arabic visitors until React renders the
-   Arabic content; the provider removes this class. */
-html.lang-pending body {
-  visibility: hidden;
-}
-
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
