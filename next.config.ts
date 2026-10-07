@@ -2,6 +2,26 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    // Services renamed in 2026: keep old links and search rankings working.
+    return [
+      {
+        source: "/services/total-quality-management",
+        destination: "/services/organizational-excellence",
+        permanent: true,
+      },
+      {
+        source: "/services/ai-management-governance",
+        destination: "/services/ai-transformation",
+        permanent: true,
+      },
+      {
+        source: "/services/digital-innovation-lab",
+        destination: "/services/digital-product-innovation",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
