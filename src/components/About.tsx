@@ -2,6 +2,7 @@
 
 import { useSectionInView } from "@/hooks/useSectionInView";
 import SectionHeader from "./SectionHeader";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 type PhilosophyId = "xOps" | "eightyTwenty" | "kaizen";
 
@@ -19,7 +20,6 @@ type PhilosophyCardConfig = {
   backgroundClass: string;
   titleBadge: React.ReactNode;
   pills: PhilosophyPill;
-  bullets: string[];
   extraColClasses?: string;
 };
 
@@ -39,13 +39,6 @@ const PHILOSOPHY_CARDS: PhilosophyCardConfig[] = [
       leftLabel: "X",
       rightLabel: "Ops",
     },
-    bullets: [
-      "Everything Ops",
-      "Holistic Digital Ops Framework",
-      "Digital Factory",
-      "Ops Visibility",
-      "Ops Continuous Improvement",
-    ],
   },
   {
     id: "eightyTwenty",
@@ -63,13 +56,6 @@ const PHILOSOPHY_CARDS: PhilosophyCardConfig[] = [
       rightLabel: "80%",
       emphasizeRight: false,
     },
-    bullets: [
-      "Roughly 80% of results come from 20% of causes",
-      "Focus on what Matters",
-      "Smart Prioritization",
-      "Faster time-to-market",
-      "Value Realization",
-    ],
   },
   {
     id: "kaizen",
@@ -86,25 +72,19 @@ const PHILOSOPHY_CARDS: PhilosophyCardConfig[] = [
       leftLabel: "i1",
       rightLabel: "i2",
     },
-    bullets: [
-      "Good Change",
-      "Small, Incremental Change",
-      "Employee Involvement",
-      "Waste Reduction",
-      "Continuous Improvement",
-    ],
     extraColClasses: "md:col-span-2 lg:col-span-1",
   },
 ];
 
 function PhilosophyCard({ config }: { config: PhilosophyCardConfig }) {
+  const { t } = useLanguage();
+  const bullets = t.about.cards[config.id];
   const {
     borderColorClass,
     hoverBorderColorClass,
     backgroundClass,
     titleBadge,
     pills,
-    bullets,
     extraColClasses,
   } = config;
 
@@ -116,24 +96,27 @@ function PhilosophyCard({ config }: { config: PhilosophyCardConfig }) {
     >
       <div className="text-center mb-6">
         <div className="transform-gpu transition-transform duration-300 ease-out will-change-transform group-hover:scale-105">
-          <div className="relative flex items-center justify-center mx-auto mb-4 w-56 h-32">
-            <img
-              src="/Figure8-cropped.png"
-              alt="Figure8 Logo"
-              className="w-full h-full object-contain"
-            />
-            <span className="absolute left-[16%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-md text-[#EB5824]">
-              {pills.leftLabel}
-            </span>
-            <span className="absolute left-[74%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-md">
-              {pills.rightLabel}
-            </span>
+          {/* Figure and title keep their English design in every language */}
+          <div lang="en" dir="ltr">
+            <div className="relative flex items-center justify-center mx-auto mb-4 w-56 h-32">
+              <img
+                src="/Figure8-cropped.png"
+                alt="Figure8 Logo"
+                className="w-full h-full object-contain"
+              />
+              <span className="absolute left-[16%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-md text-[#EB5824]">
+                {pills.leftLabel}
+              </span>
+              <span className="absolute left-[74%] top-1/2 -translate-x-1/2 -translate-y-1/2 font-bold text-md">
+                {pills.rightLabel}
+              </span>
+            </div>
+            <h4 className="text-xl sm:text-2xl font-bold text-[#212E3F] mb-6 text-center">
+              <span className="inline-block bg-white text-[#212E3F] ring-1 ring-gray-100 px-3 py-1 rounded-md shadow-sm">
+                {titleBadge}
+              </span>
+            </h4>
           </div>
-          <h4 className="text-xl sm:text-2xl font-bold text-[#212E3F] mb-6 text-center">
-            <span className="inline-block bg-white text-[#212E3F] ring-1 ring-gray-100 px-3 py-1 rounded-md shadow-sm">
-              {titleBadge}
-            </span>
-          </h4>
           <div className="space-y-3 text-sm text-[#212E3F]/70 text-center">
             {bullets.map((bullet) => (
               <p key={bullet}>{bullet}</p>
@@ -147,6 +130,7 @@ function PhilosophyCard({ config }: { config: PhilosophyCardConfig }) {
 
 export default function About() {
   const { sectionRef, isVisible } = useSectionInView<HTMLElement>();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -170,14 +154,14 @@ export default function About() {
           <SectionHeader
             title={
               <>
-                About <span className="text-[#EB5824]">Figure8 DX</span>
+                {t.about.titlePrefix}
+                <span lang="en" className="text-[#EB5824]">
+                  Figure8 DX
+                </span>
               </>
             }
             subtitle={
-              <>
-                Established in 2019, Figure8 DX works with governments,
-                enterprises, startups, and NGOs across the GCC, MENA, and EU.
-              </>
+<>{t.about.subtitle}</>
             }
           />
         </div>
@@ -193,22 +177,31 @@ export default function About() {
           <div className="bg-white rounded-xl p-10 border border-[#212E3F]/10 shadow-sm mb-16">
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold text-[#212E3F] mb-6">
-                Our <span className="text-[#EB5824]">Philosophy</span>
+                {t.about.philosophyTitlePrefix}
+                <span className="text-[#EB5824]">
+                  {t.about.philosophyTitleHighlight}
+                </span>
               </h3>
               <p className="text-lg text-[#212E3F]/70 mb-4">
-                Our philosophy sits at the intersection of{" "}
-                <span className="text-[#EB5824] font-bold">X Ops</span> ,{" "}
-                <span className="text-[#EB5824] font-bold"> 80/20 </span>
-                Rule, and{" "}
-                <span className="font-bold">
+                {t.about.philosophyIntro}{" "}
+                <span lang="en" className="text-[#EB5824] font-bold">
+                  X Ops
+                </span>
+                {t.about.philosophySep1}
+                <span lang="en" className="text-[#EB5824] font-bold">
+                  {" "}
+                  80/20{" "}
+                </span>
+                {t.about.philosophySep2}{" "}
+                <span lang="en" className="font-bold">
                   <span className="text-[#EB5824]">Kai</span>zen
                 </span>
-                .
+                {t.about.philosophyEnd}
               </p>
               <p className="text-base text-[#212E3F]/60">
-                We focus on value-driven digital work built through{" "}
+                {t.about.philosophyFocus}{" "}
                 <span className="font-semibold">
-                  small, meaningful, and continuous improvement.
+                  {t.about.philosophyFocusHighlight}
                 </span>
               </p>
             </div>

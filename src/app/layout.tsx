@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Tajawal } from "next/font/google";
 import "./globals.css";
+import {
+  LanguageProvider,
+  LANGUAGE_BOOTSTRAP_SCRIPT,
+} from "@/i18n/LanguageProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +18,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
+});
+
+// Free stand-in for DIN Next LT Arabic, which is used first when its licensed
+// files are present in public/fonts (see globals.css).
+const tajawal = Tajawal({
+  variable: "--font-tajawal",
+  subsets: ["arabic"],
+  weight: ["400", "500", "700", "800"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -128,9 +142,13 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    // The bootstrap script may switch lang/dir before hydration.
+    <html lang="en" dir="ltr" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: LANGUAGE_BOOTSTRAP_SCRIPT }} />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} antialiased`}
       >
         {/* Structured Data (JSON-LD) for SEO */}
         <script
@@ -141,7 +159,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

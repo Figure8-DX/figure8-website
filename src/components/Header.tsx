@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { scrollToSection } from "@/lib/scrollToSection";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 type NavItem =
   | { label: string; kind: "scroll"; id: string }
@@ -12,6 +13,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const { t, lang, setLang, isTranslatedPage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,13 +41,28 @@ export default function Header() {
   };
 
   const navItems: NavItem[] = [
-    { label: "Home", kind: "scroll", id: "hero" },
-    { label: "About", kind: "scroll", id: "about" },
-    { label: "Services", kind: "route", href: "/services" },
-    { label: "Industries", kind: "route", href: "/industries" },
-    { label: "Insights", kind: "route", href: "/blog" },
-    { label: "Contact", kind: "scroll", id: "contact" },
+    { label: t.nav.home, kind: "scroll", id: "hero" },
+    { label: t.nav.about, kind: "scroll", id: "about" },
+    { label: t.nav.services, kind: "route", href: "/services" },
+    { label: t.nav.industries, kind: "route", href: "/industries" },
+    { label: t.nav.insights, kind: "route", href: "/blog" },
+    { label: t.nav.contact, kind: "scroll", id: "contact" },
   ];
+
+  const toggleLanguage = () => setLang(lang === "ar" ? "en" : "ar");
+
+  const languageToggle = (className: string) =>
+    isTranslatedPage ? (
+      <button
+        type="button"
+        onClick={toggleLanguage}
+        aria-label={t.nav.switchLanguageAria}
+        lang={lang === "ar" ? "en" : "ar"}
+        className={`text-[#DDDFE0] hover:text-white border border-white/20 hover:border-[#EB5824] rounded-lg font-medium transition-colors duration-300 ${className}`}
+      >
+        {t.nav.switchLanguage}
+      </button>
+    ) : null;
 
   return (
     <header
@@ -66,14 +83,14 @@ export default function Header() {
             >
               <img
                 src="/Figure8-05.png"
-                alt="Figure8 DX Logo"
+                alt={t.nav.logoAlt}
                 className="h-10 w-auto transition-all duration-300 group-hover:scale-105"
               />
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => {
               const linkClass =
                 "relative text-[#DDDFE0] hover:text-white transition-colors duration-300 group cursor-pointer";
@@ -81,7 +98,7 @@ export default function Header() {
                 <>
                   <span className="relative z-10 font-medium">{item.label}</span>
                   {/* Hover underline effect */}
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#EB5824] group-hover:w-full transition-all duration-300"></div>
+                  <div className="absolute bottom-0 start-0 w-0 h-0.5 bg-[#EB5824] group-hover:w-full transition-all duration-300"></div>
                   {/* Hover background glow */}
                   <div className="absolute inset-0 rounded-md bg-[#EB5824]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2"></div>
                 </>
@@ -112,8 +129,9 @@ export default function Header() {
             })}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* Language toggle + CTA Button */}
+          <div className="hidden lg:flex items-center gap-4">
+            {languageToggle("px-3 py-2 text-sm")}
             <a
               href="#contact"
               onClick={() => handleNavClick("contact")}
@@ -135,7 +153,7 @@ export default function Header() {
                   "0 0 0 0 var(--color-brand-500)";
               }}
             >
-              <span className="relative z-10">Let&apos;s Connect</span>
+              <span className="relative z-10">{t.nav.cta}</span>
               <div
                 className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
@@ -146,35 +164,36 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            className="lg:hidden relative w-8 h-8 flex flex-col justify-center items-center space-y-1.5 group"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-controls="mobile-navigation"
-            aria-expanded={isMobileMenuOpen}
-            aria-label={
-              isMobileMenuOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
-            }
-          >
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></div>
-            <div
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></div>
-          </button>
+          {/* Mobile: language toggle + menu button */}
+          <div className="lg:hidden flex items-center gap-3">
+            {languageToggle("px-2 py-1 text-xs")}
+            <button
+              type="button"
+              className="relative w-8 h-8 flex flex-col justify-center items-center space-y-1.5 group"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-controls="mobile-navigation"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={
+                isMobileMenuOpen ? t.nav.closeMenu : t.nav.openMenu
+              }
+            >
+              <div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
+              ></div>
+              <div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
+              ></div>
+              <div
+                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+                  isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              ></div>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation Menu */}
@@ -193,9 +212,9 @@ export default function Header() {
             >
               {navItems.map((item) => {
                 const linkClass =
-                  "text-left text-[#DDDFE0] hover:text-white hover:bg-[#EB5824]/10 px-4 py-3 rounded-lg transition-all duration-300 group cursor-pointer";
+                  "text-start text-[#DDDFE0] hover:text-white hover:bg-[#EB5824]/10 px-4 py-3 rounded-lg transition-all duration-300 group cursor-pointer";
                 const inner = (
-                  <span className="font-medium group-hover:translate-x-1 transform transition-transform duration-300 inline-block">
+                  <span className="font-medium group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transform transition-transform duration-300 inline-block">
                     {item.label}
                   </span>
                 );
@@ -243,7 +262,7 @@ export default function Header() {
                     "0 0 0 0 rgba(235, 88, 36, 0.3)";
                 }}
               >
-                Let&apos;s Connect
+                {t.nav.cta}
               </a>
             </nav>
           </div>
@@ -252,7 +271,7 @@ export default function Header() {
 
       {/* Progress Bar */}
       {isScrolled && (
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#212E3F]/30">
+        <div className="absolute bottom-0 inset-x-0 h-0.5 bg-[#212E3F]/30">
           <div
             className="h-full bg-gradient-to-r from-[#EB5824] to-[#ff6b3d] transition-all duration-150"
             style={{

@@ -5,17 +5,20 @@ import Link from "next/link";
 import { SERVICES } from "@/config/services";
 import { getServiceSlugById } from "@/config/serviceDetails";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/config/contact";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import { localizeService } from "@/i18n/dictionaries";
 
 export default function Footer() {
   const [currentYear] = useState(new Date().getFullYear());
   const [isVisible] = useState(true);
+  const { t, lang } = useLanguage();
 
   const quickLinks = [
-    { name: "About", href: "/#about" },
-    { name: "Services", href: "/services" },
-    { name: "Industries", href: "/industries" },
-    { name: "Insights", href: "/blog" },
-    { name: "Contact", href: "/#contact" },
+    { name: t.nav.about, href: "/#about" },
+    { name: t.nav.services, href: "/services" },
+    { name: t.nav.industries, href: "/industries" },
+    { name: t.nav.insights, href: "/blog" },
+    { name: t.nav.contact, href: "/#contact" },
   ];
 
   return (
@@ -33,24 +36,23 @@ export default function Footer() {
               <div className="mb-6">
                 <img
                   src="/Figure8-12.png"
-                  alt="Figure8 DX Logo"
+                  alt={t.nav.logoAlt}
                   className="h-12 w-auto mb-4"
                 />
                 <p className="text-[#EB5824] font-semibold text-sm">
-                  Transform. Build. Thrive.
+                  {t.footer.tagline}
                 </p>
               </div>
 
               <p className="text-[#212E3F]/70 text-sm leading-relaxed">
-                Digital transformation partner since 2019, operating across the
-                GCC, MENA, and EU.
+                {t.footer.about}
               </p>
             </div>
 
             {/* Quick Navigation */}
             <div>
               <h4 className="text-lg font-bold text-[#212E3F] mb-4">
-                Quick Links
+                {t.footer.quickLinks}
               </h4>
               <nav className="space-y-3">
                 {quickLinks.map((link, index) => (
@@ -68,7 +70,7 @@ export default function Footer() {
             {/* Services */}
             <div>
               <h4 className="text-lg font-bold text-[#212E3F] mb-4">
-                Services
+                {t.footer.services}
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 md:gap-x-6 gap-y-2">
                 {SERVICES.map((service) => (
@@ -77,7 +79,7 @@ export default function Footer() {
                     href={`/services/${getServiceSlugById(service.id)}`}
                     className="text-[#212E3F]/70 hover:text-[#EB5824] transition-colors duration-300 text-sm"
                   >
-                    {service.title}
+                    {localizeService(service, lang).title}
                   </Link>
                 ))}
               </div>
@@ -85,11 +87,15 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div>
-              <h4 className="text-lg font-bold text-[#212E3F] mb-4">Contact</h4>
+              <h4 className="text-lg font-bold text-[#212E3F] mb-4">
+                {t.footer.contact}
+              </h4>
 
               <div className="space-y-3">
                 <div>
-                  <div className="text-[#212E3F]/70 text-sm">Email</div>
+                  <div className="text-[#212E3F]/70 text-sm">
+                    {t.footer.email}
+                  </div>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
                     className="text-[#EB5824] hover:text-[#ff6b3d] transition-colors duration-300 text-sm font-medium"
@@ -99,26 +105,32 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <div className="text-[#212E3F]/70 text-sm mb-1">Phone</div>
+                  <div className="text-[#212E3F]/70 text-sm mb-1">
+                    {t.footer.phone}
+                  </div>
                   <div className="space-y-1">
                     <a
                       href={`tel:${CONTACT_PHONES.uae.tel}`}
                       className="block text-[#212E3F] hover:text-[#EB5824] transition-colors duration-300 text-sm"
                     >
-                      {`${CONTACT_PHONES.uae.label}: ${CONTACT_PHONES.uae.display}`}
+                      {`${t.contact.uae}: `}
+                      <span dir="ltr">{CONTACT_PHONES.uae.display}</span>
                     </a>
                     <a
                       href={`tel:${CONTACT_PHONES.ksa.tel}`}
                       className="block text-[#212E3F] hover:text-[#EB5824] transition-colors duration-300 text-sm"
                     >
-                      {`${CONTACT_PHONES.ksa.label}: ${CONTACT_PHONES.ksa.display}`}
+                      {`${t.contact.ksa}: `}
+                      <span dir="ltr">{CONTACT_PHONES.ksa.display}</span>
                     </a>
                   </div>
                 </div>
 
                 {/* Social Links */}
                 <div>
-                  <div className="text-[#212E3F]/70 text-sm mb-2">Connect</div>
+                  <div className="text-[#212E3F]/70 text-sm mb-2">
+                    {t.footer.connect}
+                  </div>
                   <div className="flex gap-2">
                     <div className="w-8 h-8 bg-[#EB5824]/20 rounded-lg flex items-center justify-center hover:bg-[#EB5824] transition-colors duration-300 cursor-pointer group">
                       <svg
@@ -149,7 +161,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             {/* Copyright */}
             <div className="text-[#212E3F]/70 text-sm">
-              © {currentYear} Figure8 DX. All rights reserved.
+              © {currentYear} Figure8 DX. {t.footer.rights}
             </div>
           </div>
         </div>

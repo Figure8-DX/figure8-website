@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { useSectionInView } from "@/hooks/useSectionInView";
 import SectionHeader from "./SectionHeader";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 // Client interface
 interface Client {
@@ -14,7 +15,8 @@ export default function ClientLogos() {
   const [clients, setClients] = useState<Client[]>([]);
   const { sectionRef, isVisible } = useSectionInView<HTMLElement>();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<"errorEmpty" | "errorLoad" | null>(null);
+  const { t } = useLanguage();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -46,13 +48,13 @@ export default function ClientLogos() {
         const data = await response.json();
 
         if (!data || data.length === 0) {
-          setError("No clients available at this time.");
+          setError("errorEmpty");
         } else {
           setClients(data);
         }
       } catch (error) {
         console.error("Error fetching clients:", error);
-        setError("Unable to load clients. Please try again later.");
+        setError("errorLoad");
       } finally {
         setLoading(false);
       }
@@ -128,10 +130,13 @@ export default function ClientLogos() {
           <SectionHeader
             title={
               <>
-                Our <span className="text-[#EB5824]">Clients</span>
+                {t.clients.titlePrefix}
+                <span className="text-[#EB5824]">
+                  {t.clients.titleHighlight}
+                </span>
               </>
             }
-            subtitle={<>Trusted by leading organizations across the region.</>}
+            subtitle={<>{t.clients.subtitle}</>}
           />
         </div>
 
@@ -144,7 +149,7 @@ export default function ClientLogos() {
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block w-12 h-12 border-4 border-[#EB5824]/20 border-t-[#EB5824] rounded-full animate-spin"></div>
-              <p className="mt-4 text-[#212E3F]/60">Loading clients...</p>
+              <p className="mt-4 text-[#212E3F]/60">{t.clients.loading}</p>
             </div>
           ) : error ? (
             <div
@@ -165,12 +170,12 @@ export default function ClientLogos() {
                   d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                 />
               </svg>
-              <p className="text-[#212E3F] font-semibold">{error}</p>
+              <p className="text-[#212E3F] font-semibold">{t.clients[error]}</p>
             </div>
           ) : clients.length === 0 ? (
             <div className="text-center py-12" role="status" aria-live="polite">
               <p className="text-[#212E3F]/60">
-                No clients to display at this time.
+                {t.clients.none}
               </p>
             </div>
           ) : prefersReducedMotion ? (
@@ -193,7 +198,8 @@ export default function ClientLogos() {
             </div>
           ) : (
             // Dynamic multi-row animated marquee with alternating directions
-            <div className="space-y-4">
+            // The marquee only shows logos; keep it LTR so it scrolls correctly.
+            <div className="space-y-4" dir="ltr">
               {clientRows.map((row, rowIndex) => {
                 // Alternate directions: right, left, right, etc.
                 const direction = rowIndex % 2 === 0 ? "right" : "left";

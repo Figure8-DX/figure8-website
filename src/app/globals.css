@@ -42,6 +42,105 @@ h6 {
   font-family: var(--font-geist-sans);
 }
 
+/* ---------- Arabic (RTL) ---------- */
+
+/*
+ * DIN Next LT Arabic is a licensed Monotype font. Put its web font files in
+ * public/fonts/ with these names to switch to it; until then the browser
+ * falls back to Tajawal (loaded in layout.tsx).
+ */
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src:
+    local("DIN Next LT Arabic"),
+    url("/fonts/DINNextLTArabic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src:
+    local("DIN Next LT Arabic Medium"),
+    url("/fonts/DINNextLTArabic-Medium.woff2") format("woff2");
+  font-weight: 500 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src:
+    local("DIN Next LT Arabic Bold"),
+    url("/fonts/DINNextLTArabic-Bold.woff2") format("woff2");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The font variables from next/font live on <body>, so define the stack there. */
+body {
+  --font-arabic: "DIN Next LT Arabic", var(--font-tajawal), sans-serif;
+}
+
+/* Arabic pages use the Arabic font throughout (it also covers Latin words
+   inside Arabic sentences); elements marked lang="en" keep Geist. */
+html[lang="ar"] body,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  font-family: var(--font-arabic);
+}
+
+/* Arabic glyphs read about 15% smaller than Geist at the same font size;
+   font-size-adjust scales the Arabic font up to match without touching any
+   Tailwind size classes (and keeps working when DIN Next is swapped in). */
+html[lang="ar"] body {
+  font-size-adjust: 0.53;
+}
+
+html[lang="ar"] [lang="en"] {
+  font-family: var(--font-geist-sans);
+  font-size-adjust: none;
+}
+
+/* Arabic snippets on English pages (e.g. the language toggle label). */
+html:not([lang="ar"]) [lang="ar"] {
+  font-family: var(--font-arabic);
+}
+
+/* Arabic needs taller lines and must never be letter-spaced (spacing breaks
+   the joins between letters). */
+html[lang="ar"] body {
+  line-height: 1.7;
+}
+
+html[lang="ar"] :not(:lang(en)) {
+  letter-spacing: normal !important;
+}
+
+html[lang="ar"] p:not(:lang(en)),
+html[lang="ar"] li:not(:lang(en)) {
+  line-height: 1.9;
+}
+
+html[lang="ar"] h1:not(:lang(en)),
+html[lang="ar"] h2:not(:lang(en)),
+html[lang="ar"] h3:not(:lang(en)),
+html[lang="ar"] h4:not(:lang(en)) {
+  line-height: 1.4;
+}
+
+/* Hide the first (English) paint from Arabic visitors until React renders the
+   Arabic content; the provider removes this class. */
+html.lang-pending body {
+  visibility: hidden;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

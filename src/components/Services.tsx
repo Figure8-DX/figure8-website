@@ -6,6 +6,8 @@ import { useSectionInView } from "@/hooks/useSectionInView";
 import SectionHeader from "./SectionHeader";
 import { SERVICES, ServiceId, ServiceConfig } from "@/config/services";
 import { getServiceSlugById } from "@/config/serviceDetails";
+import { useLanguage } from "@/i18n/LanguageProvider";
+import { localizeService } from "@/i18n/dictionaries";
 
 type ServiceWithIcon = ServiceConfig & {
   icon: React.ReactNode;
@@ -103,7 +105,7 @@ const SERVICE_ICONS: Record<ServiceId, React.ReactNode> = {
   ),
 };
 
-const services: ServiceWithIcon[] = SERVICES.map((service) => ({
+const SERVICES_WITH_ICONS: ServiceWithIcon[] = SERVICES.map((service) => ({
   ...service,
   icon: SERVICE_ICONS[service.id],
 }));
@@ -115,7 +117,7 @@ const FeatureList = ({
   features: string[];
   mobile?: boolean;
 }) => (
-  <div className={mobile ? "space-y-3" : "space-y-4 pl-1 lg:pl-2"}>
+  <div className={mobile ? "space-y-3" : "space-y-4 ps-1 lg:ps-2"}>
     {features.map((feature, idx) => (
       <div key={idx} className="flex items-start gap-3 lg:gap-4">
         <div
@@ -135,6 +137,10 @@ export default function Services() {
   const [activeService, setActiveService] = useState(0);
   const { sectionRef, isVisible } = useSectionInView<HTMLElement>();
   const accordionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { t, lang } = useLanguage();
+  const services = SERVICES_WITH_ICONS.map((service) =>
+    localizeService(service, lang),
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -188,14 +194,14 @@ export default function Services() {
           <SectionHeader
             title={
               <>
-                Our <span className="text-[#EB5824]">Services</span>
+                {t.services.titlePrefix}
+                <span className="text-[#EB5824]">
+                  {t.services.titleHighlight}
+                </span>
               </>
             }
             subtitle={
-              <>
-                Comprehensive digital transformation services designed for
-                governmental and enterprise excellence.
-              </>
+<>{t.services.subtitle}</>
             }
           />
         </div>
@@ -213,7 +219,7 @@ export default function Services() {
             >
               <button
                 onClick={() => handleAccordionClick(index)}
-                className="w-full text-left p-6 flex items-center gap-4 hover:bg-white transition-all duration-300"
+                className="w-full text-start p-6 flex items-center gap-4 hover:bg-white transition-all duration-300"
               >
                 <div className="w-12 h-12 bg-[#EB5824]/10 rounded-lg flex items-center justify-center flex-shrink-0 text-[#EB5824]">
                   {service.icon}
@@ -258,9 +264,9 @@ export default function Services() {
                     href={`/services/${getServiceSlugById(service.id)}`}
                     className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#EB5824] hover:gap-3 transition-all duration-300"
                   >
-                    Learn more
+                    {t.services.learnMore}
                     <svg
-                      className="w-4 h-4"
+                      className="w-4 h-4 rtl:-scale-x-100"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -288,7 +294,7 @@ export default function Services() {
               <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
                 <div className="relative">
                   <h4 className="text-base lg:text-lg font-bold text-[#212E3F] mb-5 lg:mb-6">
-                    All Services
+                    {t.services.allServices}
                   </h4>
                   <div className="grid grid-cols-2 gap-3">
                     {services.map((service, idx) => {
@@ -297,7 +303,7 @@ export default function Services() {
                         <button
                           key={idx}
                           onClick={() => setActiveService(idx)}
-                          className={`group w-full text-left rounded-lg border focus:outline-none transition-all duration-300 ${
+                          className={`group w-full text-start rounded-lg border focus:outline-none transition-all duration-300 ${
                             isActive
                               ? "bg-white shadow-md border-[#EB5824]"
                               : "bg-white/50 text-[#212E3F]/70 hover:bg-white hover:shadow-sm border-[#212E3F]/10 hover:border-[#EB5824]/30"
@@ -331,7 +337,7 @@ export default function Services() {
                   </div>
                 </div>
                 <div key={activeService} className="fade-slide-in">
-                  <div className="flex items-center gap-5 mb-8 lg:mb-10 pl-1 lg:pl-2">
+                  <div className="flex items-center gap-5 mb-8 lg:mb-10 ps-1 lg:ps-2">
                     <div className="w-14 h-14 bg-[#EB5824]/10 rounded-lg flex items-center justify-center text-[#EB5824]">
                       {services[activeService].icon}
                     </div>
@@ -339,17 +345,17 @@ export default function Services() {
                       {services[activeService].title}
                     </h3>
                   </div>
-                  <p className="text-base lg:text-lg text-[#212E3F]/70 mb-8 lg:mb-10 leading-relaxed pl-1 lg:pl-2">
+                  <p className="text-base lg:text-lg text-[#212E3F]/70 mb-8 lg:mb-10 leading-relaxed ps-1 lg:ps-2">
                     {services[activeService].description}
                   </p>
                   <FeatureList features={services[activeService].features} />
                   <Link
                     href={`/services/${getServiceSlugById(services[activeService].id)}`}
-                    className="mt-8 ml-1 lg:ml-2 inline-flex items-center gap-2 text-base font-semibold text-[#EB5824] hover:gap-3 transition-all duration-300"
+                    className="mt-8 ms-1 lg:ms-2 inline-flex items-center gap-2 text-base font-semibold text-[#EB5824] hover:gap-3 transition-all duration-300"
                   >
-                    Explore {services[activeService].title}
+                    {t.services.explore} {services[activeService].title}
                     <svg
-                      className="w-5 h-5"
+                      className="w-5 h-5 rtl:-scale-x-100"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

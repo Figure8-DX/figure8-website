@@ -2,9 +2,11 @@
 
 import ExpertiseLogos from "./ExpertiseLogos";
 import { useSectionInView } from "@/hooks/useSectionInView";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function ExpertiseSection() {
   const { sectionRef, isVisible } = useSectionInView<HTMLElement>();
+  const { t } = useLanguage();
 
   return (
     <section
@@ -26,37 +28,12 @@ export default function ExpertiseSection() {
           <div className="bg-white rounded-xl p-10 border border-[#212E3F]/10 shadow-sm">
             <div className="text-center mb-12">
               <h3 className="text-3xl font-bold text-[#212E3F] mb-4">
-                Our Expertise
+                {t.expertise.title}
               </h3>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {[
-                {
-                  metric: "Frameworks",
-                  label: "Expertise",
-                  description:
-                    "Expertise in international and national standards and best practices like TOGAF, ITIL, COBIT, ISO42010, ISO20000, CMMI, QIYAS, DXMI, NDI, NAII",
-                },
-                {
-                  metric: "Platforms",
-                  label: "Expertise",
-                  description:
-                    "Deep expertise in platforms like Alfabet, Orbus iServer, BizzDesign, ARIS, OvalEdge, and more.",
-                },
-                {
-                  metric: "Industries",
-                  label: "Expertise",
-                  description:
-                    "Expertise in industries like Government, Healthcare, Education, Energy, Telecom, Hospitality, Transportation & Logistics, and Manufacturing",
-                },
-                {
-                  metric: "Regional",
-                  label: "Expertise",
-                  description:
-                    "Proven experience delivering transformation initiatives across KSA, UAE, Oman, Kuwait, Qatar, and Lebanon.",
-                },
-              ].map((diff, index) => (
+              {t.expertise.cards.map((diff, index) => (
                 <div
                   key={index}
                   className="flex flex-col justify-center items-center text-center p-6 rounded-lg bg-[#f9fafb] border border-[#212E3F]/10 hover:border-[#EB5824]/20 hover:shadow-md transition-all duration-300 min-h-[220px]"
@@ -76,6 +53,7 @@ export default function ExpertiseSection() {
             </div>
 
             <ExpertiseLogos
+              headings={t.expertise}
               internationalLogos={[
                 { name: "TOGAF", imagePath: "/images/standards/Togaf.png" },
                 { name: "ITIL", imagePath: "/images/standards/ITIL.png" },

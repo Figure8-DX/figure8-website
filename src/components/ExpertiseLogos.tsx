@@ -9,12 +9,14 @@ interface ExpertiseLogosProps {
   internationalLogos: Logo[];
   ksaLogos: Logo[];
   platformLogos?: Logo[];
+  headings: { international: string; ksa: string; platforms: string };
 }
 
 const ExpertiseLogos: React.FC<ExpertiseLogosProps> = ({
   internationalLogos,
   ksaLogos,
   platformLogos,
+  headings,
 }) => {
   return (
     <div className="mt-6">
@@ -22,7 +24,7 @@ const ExpertiseLogos: React.FC<ExpertiseLogosProps> = ({
       {internationalLogos && internationalLogos.length > 0 && (
         <div className="mb-8">
           <h4 className="text-lg md:text-xl font-semibold text-[#212E3F]/70 mb-4 tracking-wide">
-            International Standards & Best Practices
+            {headings.international}
           </h4>
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2">
             {internationalLogos.map((logo, idx) => (
@@ -49,7 +51,7 @@ const ExpertiseLogos: React.FC<ExpertiseLogosProps> = ({
       {ksaLogos && ksaLogos.length > 0 && (
         <div className="mb-8">
           <h4 className="text-lg md:text-xl font-semibold text-[#212E3F]/70 mb-4 tracking-wide">
-            KSA National Standards
+            {headings.ksa}
           </h4>
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2">
             {ksaLogos.map((logo, idx) => (
@@ -76,7 +78,7 @@ const ExpertiseLogos: React.FC<ExpertiseLogosProps> = ({
       {platformLogos && platformLogos.length > 0 && (
         <div>
           <h4 className="text-lg md:text-xl font-semibold text-[#212E3F]/70 mb-4 tracking-wide">
-            Technology Platforms
+            {headings.platforms}
           </h4>
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2">
             {platformLogos.map((logo, idx) => (

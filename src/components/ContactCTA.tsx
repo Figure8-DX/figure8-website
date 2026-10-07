@@ -3,9 +3,11 @@
 import { useSectionInView } from "@/hooks/useSectionInView";
 import SectionHeader from "./SectionHeader";
 import { CONTACT_EMAIL, CONTACT_PHONES } from "@/config/contact";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function ContactCTA() {
   const { sectionRef, isVisible } = useSectionInView<HTMLElement>();
+  const { t } = useLanguage();
 
   const handleScheduleMeeting = () => {
     window.open(
@@ -23,7 +25,7 @@ export default function ContactCTA() {
           <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
         </svg>
       ),
-      label: "Email",
+      label: t.contact.email,
       value: CONTACT_EMAIL,
       link: `mailto:${CONTACT_EMAIL}`,
     },
@@ -33,7 +35,7 @@ export default function ContactCTA() {
           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
         </svg>
       ),
-      label: CONTACT_PHONES.uae.label,
+      label: t.contact.uae,
       value: CONTACT_PHONES.uae.display,
       link: `tel:${CONTACT_PHONES.uae.tel}`,
     },
@@ -43,7 +45,7 @@ export default function ContactCTA() {
           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
         </svg>
       ),
-      label: CONTACT_PHONES.ksa.label,
+      label: t.contact.ksa,
       value: CONTACT_PHONES.ksa.display,
       link: `tel:${CONTACT_PHONES.ksa.tel}`,
     },
@@ -85,15 +87,14 @@ export default function ContactCTA() {
               align="left"
               title={
                 <>
-                  Book a Quick
-                  <span className="text-[#EB5824]"> Meeting</span>
+                  {t.contact.titlePrefix}
+                  <span className="text-[#EB5824]">
+                    {t.contact.titleHighlight}
+                  </span>
                 </>
               }
               subtitle={
-                <>
-                  Choose a time that works for you. Simple, fast, and completely
-                  free. Just a friendly conversation to explore how we can help.
-                </>
+<>{t.contact.subtitle}</>
               }
               titleClassName="text-white leading-tight"
               subtitleClassName="text-white/70 mb-8"
@@ -132,7 +133,7 @@ export default function ContactCTA() {
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                Schedule a Meeting
+                {t.contact.schedule}
               </div>
             </button>
 
@@ -155,12 +156,9 @@ export default function ContactCTA() {
                 </svg>
                 <span>
                   <strong className="text-white">
-                    Privacy & Security Assured:
+                    {t.contact.privacyTitle}
                   </strong>{" "}
-                  All inquiries are handled with strict confidentiality. We
-                  comply with international data protection standards and
-                  maintain ISO 9001 certification for quality assurance in
-                  public sector engagements.
+                  {t.contact.privacyBody}
                 </span>
               </div>
             </div>
@@ -204,7 +202,7 @@ export default function ContactCTA() {
                 {/* What to Expect */}
                 <div className="flex-1 w-full">
                   <h5 className="text-base font-bold text-white mb-4">
-                    What to expect:
+                    {t.contact.expectTitle}
                   </h5>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
@@ -222,7 +220,7 @@ export default function ContactCTA() {
                         />
                       </svg>
                       <span className="text-white/70 text-sm leading-relaxed">
-                        15-30 minute casual conversation
+                        {t.contact.expect[0]}
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -240,7 +238,7 @@ export default function ContactCTA() {
                         />
                       </svg>
                       <span className="text-white/70 text-sm leading-relaxed">
-                        100% confidential discussion
+                        {t.contact.expect[1]}
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
@@ -258,7 +256,7 @@ export default function ContactCTA() {
                         />
                       </svg>
                       <span className="text-white/70 text-sm leading-relaxed">
-                        No pressure or obligation
+                        {t.contact.expect[2]}
                       </span>
                     </li>
                   </ul>
@@ -298,7 +296,9 @@ export default function ContactCTA() {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-xl font-bold text-white">Get in Touch</h4>
+                  <h4 className="text-xl font-bold text-white">
+                    {t.contact.getInTouch}
+                  </h4>
                 </div>
 
                 <div className="space-y-3">
@@ -306,7 +306,7 @@ export default function ContactCTA() {
                     <a
                       key={index}
                       href={method.link}
-                      className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl hover:bg-white/10 hover:border-[#EB5824]/50 border border-white/10 group transform hover:translate-x-1 transition-colors transition-transform duration-500 ease-in-out"
+                      className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-xl hover:bg-white/10 hover:border-[#EB5824]/50 border border-white/10 group transform hover:translate-x-1 rtl:hover:-translate-x-1 transition-colors transition-transform duration-500 ease-in-out"
                       style={{
                         animationDelay: `${index * 100}ms`,
                       }}
@@ -318,12 +318,14 @@ export default function ContactCTA() {
                         <div className="font-semibold text-white text-sm mb-1">
                           {method.label}
                         </div>
-                        <div className="text-white/70 text-sm group-hover:text-white/90 transition-colors duration-500 ease-in-out">
+                        <div
+                          dir="ltr"
+                          className="rtl:text-right text-white/70 text-sm group-hover:text-white/90 transition-colors duration-500 ease-in-out">
                           {method.value}
                         </div>
                       </div>
                       <svg
-                        className="w-5 h-5 text-[#EB5824] opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-500 ease-in-out"
+                        className="w-5 h-5 text-[#EB5824] opacity-0 rtl:-scale-x-100 group-hover:opacity-100 transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-all duration-500 ease-in-out"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -354,7 +356,7 @@ export default function ContactCTA() {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span>Available: Sunday to Friday, 9 AM - 5 PM GST</span>
+                  <span>{t.contact.availability}</span>
                 </div>
               </div>
             </div>

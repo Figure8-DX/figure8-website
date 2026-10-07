@@ -5,9 +5,11 @@ import HeroBackground, { imageOptions } from "./HeroBackground";
 import ImageSwitcherDebug from "./ImageSwitcherDebug";
 import { scrollToSection } from "@/lib/scrollToSection";
 import Img from "next/image";
+import { useLanguage } from "@/i18n/LanguageProvider";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
   const [currentImageOption, setCurrentImageOption] = useState(16); // Start with blue background
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -128,7 +130,9 @@ export default function Hero() {
           >
             {/* Main Headline - Optimized Size */}
             <h1
-              className={`font-black tracking-tight text-5xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl mb-3 sm:mb-4 max-w-4xl leading-[1.1] ${textColor}`}
+              lang="en"
+              dir="ltr"
+              className={`w-fit font-black tracking-tight text-5xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl mb-3 sm:mb-4 max-w-4xl leading-[1.1] ${textColor}`}
               style={{ letterSpacing: "-0.03em" }}
             >
               <span className="block mb-1 sm:mb-2">
@@ -141,12 +145,7 @@ export default function Hero() {
 
             {/* Slogan Tags/Chips */}
             <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 mb-4 sm:mb-6">
-              {[
-                { text: "X for Excellence" },
-                { text: "X for Transformation" },
-                { text: "X for Innovation" },
-                { text: "X for Product" },
-              ].map((item, index) => (
+              {t.hero.chips.map((chip, index) => (
                 <div
                   key={index}
                   className={`flex items-center justify-center w-full sm:w-auto gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-full border transition-all duration-300 ${
@@ -158,8 +157,10 @@ export default function Hero() {
                   <span
                     className={`text-xs sm:text-sm font-semibold ${isDarkBackground ? "text-white" : "text-[#212E3F]"}`}
                   >
-                    <span className="text-[#EB5824] font-bold">X</span> for{" "}
-                    {item.text.replace("X for ", "")}
+                    <span lang="en" className="text-[#EB5824] font-bold">
+                      X
+                    </span>{" "}
+                    {chip}
                   </span>
                 </div>
               ))}
@@ -169,12 +170,11 @@ export default function Hero() {
             <p
               className={`text-base sm:text-lg md:text-xl mb-5 sm:mb-8 leading-relaxed max-w-3xl ${textColorMuted}`}
             >
-              We partner with government entities, enterprises, and startups to
-              deliver digital transformation that creates real value,{" "}
+              {t.hero.subheadline}{" "}
               <span
                 className={`${orangeColor} font-medium bg-[#EB5824] px-1 rounded text-white`}
               >
-                without eliminating the human factor.
+                {t.hero.subheadlineHighlight}
               </span>
             </p>
 
@@ -196,9 +196,9 @@ export default function Hero() {
                 }}
               >
                 <span className="flex items-center justify-center gap-2">
-                  Let&apos;s Connect
+                  {t.hero.cta}
                   <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
+                    className="w-4 h-4 sm:w-5 sm:h-5 rtl:-scale-x-100 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -234,7 +234,7 @@ export default function Hero() {
                   <div
                     className={`text-[10px] sm:text-xs font-medium tracking-wide uppercase leading-tight ${textColorMuted}`}
                   >
-                    Years Of Industry Experience
+                    {t.hero.stats.years}
                   </div>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export default function Hero() {
                   <div
                     className={`text-[10px] sm:text-xs font-medium tracking-wide uppercase leading-tight ${textColorMuted}`}
                   >
-                    Successful Projects
+                    {t.hero.stats.projects}
                   </div>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function Hero() {
                   <div
                     className={`text-[10px] sm:text-xs font-medium tracking-wide uppercase leading-tight ${textColorMuted}`}
                   >
-                    Provided Certifications
+                    {t.hero.stats.certifications}
                   </div>
                 </div>
               </div>
@@ -284,14 +284,14 @@ export default function Hero() {
 
         {/* Right Column - 3D Figure8 Logo */}
         <div
-          className={`hidden lg:flex items-center justify-end w-full max-w-md transform transition-all duration-1000 delay-300 ml-auto ${isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"}`}
+          className={`hidden lg:flex items-center justify-end w-full max-w-md transform transition-all duration-1000 delay-300 ms-auto ${isVisible ? "translate-x-0 opacity-100" : "translate-x-10 rtl:-translate-x-10 opacity-0"}`}
         >
           <div className="relative flex items-center justify-center animate-float">
             <Img
               width={450}
               height={450}
               src="/images/matte-3d-logo.png"
-              alt="Figure8 3D Brand Logo"
+              alt={t.hero.logoAlt}
               className="w-full h-auto max-w-[450px] object-contain drop-shadow-2xl"
             />
           </div>
