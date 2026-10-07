@@ -45,7 +45,7 @@ export default function Header() {
     { label: t.nav.about, kind: "scroll", id: "about" },
     { label: t.nav.services, kind: "route", href: "/services" },
     { label: t.nav.industries, kind: "route", href: "/industries" },
-    { label: t.nav.insights, kind: "route", href: "/blog" },
+    { label: t.nav.clients, kind: "scroll", id: "clients" },
     { label: t.nav.contact, kind: "scroll", id: "contact" },
   ];
 

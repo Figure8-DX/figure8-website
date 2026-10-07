@@ -17,7 +17,7 @@ export default function Footer() {
     { name: t.nav.about, href: `${homePath}#about` },
     { name: t.nav.services, href: "/services" },
     { name: t.nav.industries, href: "/industries" },
-    { name: t.nav.insights, href: "/blog" },
+    { name: t.nav.clients, href: `${homePath}#clients` },
     { name: t.nav.contact, href: `${homePath}#contact` },
   ];
 
